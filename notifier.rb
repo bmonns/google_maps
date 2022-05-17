@@ -20,11 +20,13 @@ uri = URI('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + 
 res = Net::HTTP.get_response(uri)
 json_response = JSON.parse(res.body)
 
-time = json_response['rows'][0]['elements'][0]['duration']['value']
+time_sec = json_response['rows'][0]['elements'][0]['duration']['value']
+time_min = json_response['rows'][0]['elements'][0]['duration']['text']
 
-if time>600 then
+if time_sec > 600 then
     post_uri = URI('https://maker.ifttt.com/trigger/Google_Notifier/with/key/cu-0QxWSdbV5uQRZTdr8Ol')
-    res = Net::HTTP.post_form(post_uri,{'value1'=>'BOB'})
-
-    p res.body
+    res = Net::HTTP.post_form(post_uri,{'value1'=>home_location, 'value2'=>dest_location, 'value3'=>time_min})
+    puts "\n"+ 'Running late email sent. Step on it buddy' + "\n"
+else
+    p "\n" + 'You can make it to work on time. Hooray' + "\n"
 end
