@@ -3,11 +3,14 @@ require 'uri'
 require 'JSON'
 
 #Access API key
-reader = File.open('api_key.txt','r')
-key = reader.readline
-reader.close
+#reader = File.open('api_key.txt','r')
+#key = reader.readline
+#reader.close
 
 #Get user from location
+print "Enter Google Cloud Platforms Key: "
+key = gets()
+
 print "Enter home city: "
 home_location = gets
 
